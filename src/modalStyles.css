@@ -5,15 +5,13 @@
     width: 100vw;
     display: flex;
     justify-content: center;
-    align-items: center;
-    display: none;
+    align-items: center;   
 }
 .modal .modal-content {
     background: white;
 }
 .modal .modal-content {
-    background: white;
-    color: #000;
+    background: white;    
     width: 76%;
     border-radius: 10px;
 }

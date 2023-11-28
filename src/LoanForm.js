@@ -2,6 +2,8 @@ import Modal from "./Modal";
 import "./formStyles.css";
 import { useState } from "react";
 export default function LoanForm() {
+  const [errorMessage , setErrorMessage] = useState(null);
+  const [showModal , setShowModal] = useState(false); 
   const [loanInputs , setLoanInputs] = useState({
     name:'',
     phone:'',
@@ -11,11 +13,24 @@ export default function LoanForm() {
   });
   function handelClick(event){
     event.preventDefault();
-    alert("done");
+    const {age , phone} = loanInputs;
+    if(age < 10 || age > 80 ){
+      setErrorMessage("Age Is not a valid");
+    }else if(phone.length < 10 || phone.length > 12){
+      setErrorMessage("Phone is not a valid");
+    }else{
+      setErrorMessage(null)
+    }
+    setShowModal(true);
   }
+ function divClickModal(){
+  if(showModal){
+    setShowModal(false);
+  }
+ }
   const isBtnDisabled = loanInputs.name == "" || loanInputs.phone == "" || loanInputs.age == "";
   return (
-    <div className="Form-box flex">
+    <div className="Form-box flex" onClick={divClickModal}>
         <form className="flex">
             <h1>Requesting a Loan </h1>
             <hr/>
@@ -43,7 +58,7 @@ export default function LoanForm() {
 
             <button className={isBtnDisabled == true ? "disabled" : ""} disabled={isBtnDisabled} onClick={handelClick}>Submit</button>
         </form>
-        <Modal />
+        <Modal isVisible={showModal} errorMessage={errorMessage} />
     </div>
   )
 }
